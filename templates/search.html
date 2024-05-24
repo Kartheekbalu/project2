@@ -1,0 +1,14 @@
+<!-- search.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Search Results for...</h2>
+      {% for i in post %}
+        {{ i.name }}
+        <br>
+        {{ i.description }}
+        <br>
+        {{ i.date }}
+      {% endfor %}
+{% endblock %}

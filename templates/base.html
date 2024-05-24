@@ -1,0 +1,106 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home (Blog)</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            margin-bottom: 10px;
+        }
+
+        input {
+            padding: 8px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            padding: 8px 15px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        button a {
+            text-decoration: none;
+            color: #fff;
+        }
+
+        .task-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .task-item {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 10px;
+            background-color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Blog Application</h1>
+    </header>
+
+    <form action="search" method="get" role="search">
+        {% csrf_token %}
+        <label for="search">Search</label>
+        <input type="search" name="q" id="search" placeholder="Search here...">
+        <button type="submit">Search</button>
+    </form>
+
+    <div>
+        <button type="submit">
+            <a href="blog">Add Post</a>
+        </button>
+    </div>
+
+    {% block content %}
+        <div class="task-list">
+            {% for task in post %}
+                <div class="task-item">
+                    <h3>{{ task.name }}</h3>
+                    <p>{{ task.description }}</p>
+                    <p>{{ task.date }}</p>
+                    <button type="submit">
+                        <a href="update/{{ task.id }}">Update</a>
+                    </button>
+                    <button type="submit">
+                        <a href="delete/{{ task.id }}">Delete</a>
+                    </button>
+                </div>
+            {% endfor %}
+        </div>
+    {% endblock content %}
+
+</body>
+</html>
